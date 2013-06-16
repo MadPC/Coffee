@@ -1,5 +1,6 @@
 package com.madpc.coffee;
 
+import net.minecraft.block.Block;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,6 +25,8 @@ public class Coffee {
     
     public static BiomeGenBase coffeeBiome;
     
+    public static Block BlockCoffeaLeaves;
+    
     @Instance("Coffee")
     public static Coffee instance;
     
@@ -31,7 +34,7 @@ public class Coffee {
     public void preInit(FMLPreInitializationEvent event) {
         ModItems.init();
         
-        coffeeBiome = new BiomeGenCoffee(122);
+        coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
         
         GameRegistry.addBiome(coffeeBiome);
         

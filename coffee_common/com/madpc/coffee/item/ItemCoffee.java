@@ -18,7 +18,7 @@ import com.madpc.coffee.helper.CoffeeHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCoffee extends Item {
+public class ItemCoffee extends ItemCustom {
     
     public ItemCoffee(int id) {
         super(id);
