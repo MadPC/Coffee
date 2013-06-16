@@ -29,7 +29,7 @@ public class Coffee {
     public void preInit(FMLPreInitializationEvent event) {
         ModItems.init();
         
-        coffeeBiome = new BiomeGenCoffee(122).setBiomeName("");
+        coffeeBiome = new BiomeGenCoffee(122);
         
         GameRegistry.addBiome(coffeeBiome);
     }

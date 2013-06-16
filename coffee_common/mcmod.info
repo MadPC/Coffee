@@ -1,21 +1,16 @@
 [
 {
-	"modid": "Coffee"
-	"name" : "Coffee"
-	"description" : "COFFEE!!! COFFEE!!!"
-	"version" : "@VERSION@"
-	"url" : www.github.com/madpc/coffee", 
-	"updateUrl" : "",
-	"authorList": [
-	"advtech",
-	"TehPers"
-	],
-	"credits": "By Advtech and TehPers",
-	"logoFile": "",
-  	"screenshots": [
-  	],
-  	"parent":"",
-  	"dependencies": [
-  	]
+  "modid": "Coffee",
+  "name": "Coffee, Not Tea",
+  "description": "We gave you Coffee, not Tea",
+  "version": "@VERSION@",
+  "url": "www.github.com/madpc/Coffee",
+  "updateUrl": "",
+  "authorList": [ "TehPers", "Advtech" ],
+  "credits": "A MadPC Mod",
+  "logoFile": "",
+  "screenshots": [   ],
+  "parent":"",
+  "dependencies": [   ]
 }
 ]
