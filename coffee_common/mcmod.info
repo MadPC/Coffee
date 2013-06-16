@@ -1,0 +1,21 @@
+[
+{
+	"modid": "Coffee"
+	"name" : "Coffee"
+	"description" : "COFFEE!!! COFFEE!!!"
+	"version" : "@VERSION@"
+	"url" : www.github.com/madpc/coffee", 
+	"updateUrl" : "",
+	"authorList": [
+	"advtech",
+	"TehPers"
+	],
+	"credits": "By Advtech and TehPers",
+	"logoFile": "",
+  	"screenshots": [
+  	],
+  	"parent":"",
+  	"dependencies": [
+  	]
+}
+]
