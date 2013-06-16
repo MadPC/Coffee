@@ -1,13 +1,22 @@
 package com.madpc.coffee.item;
 
+import java.util.List;
+
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import com.madpc.coffee.Coffee;
+import com.madpc.coffee.helper.CoffeeHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCoffee extends Item {
     
@@ -19,10 +28,34 @@ public class ItemCoffee extends Item {
     public ItemStack onEaten(ItemStack stack, World worldObj, EntityPlayer player) {
         --stack.stackSize;
         worldObj.playSoundAtEntity(player, "random.burp", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        // Add effects
+        
+        if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
+        NBTTagCompound tag = stack.getTagCompound();
         int amplifier = 0;
-        if (player.isPotionActive(Coffee.caffeine)) amplifier = player.getActivePotionEffect(Coffee.caffeine).getAmplifier() + 1;
-        player.addPotionEffect(new PotionEffect(Coffee.caffeine.id, 1000, amplifier)); // Duration will be 6000
+        
+        // Add caffeine
+        if (!tag.getBoolean("decaf")) {
+            if (player.isPotionActive(Coffee.caffeine)) amplifier = player.getActivePotionEffect(Coffee.caffeine).getAmplifier() + 1;
+            player.addPotionEffect(new PotionEffect(Coffee.caffeine.id, 6000, amplifier));
+        }
+        
+        // Add sugar
+        if (tag.getInteger("sugar") > 0) {
+            amplifier = tag.getInteger("sugar") - 1;
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,  600 * (amplifier + 1), amplifier));
+        }
+        
+        // Add poison
+        if (tag.getInteger("poison") > 0) {
+            amplifier = tag.getInteger("poison") - 1;
+            player.addPotionEffect(new PotionEffect(Potion.poison.id,  200 * (amplifier + 1), amplifier));
+        }
+        
+        // Add milk
+        if (tag.getInteger("milk") > 0) {
+            player.getFoodStats().addStats(tag.getInteger("milk"), 0.1F);
+        }
+        
         return stack;
     }
     
@@ -32,26 +65,55 @@ public class ItemCoffee extends Item {
     }
     
     @Override
-    public String getItemDisplayName(ItemStack par1ItemStack) {
-        return "Coffee";
+    public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean par4) {
+        CoffeeHelper.addInformation(stack, lines);
+    }
+    
+    
+    @Override
+    public String getItemDisplayName(ItemStack stack) {
+        return CoffeeHelper.getCoffeeName(stack);
     }
     
     @Override
-    public int getMaxItemUseDuration(ItemStack par1ItemStack)
-    {
+    public int getMaxItemUseDuration(ItemStack par1ItemStack) {
         return 32;
     }
     
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-    {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
     
-    /*@Override
+    @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubItems(int id, CreativeTabs tab, List items) {
         
-    }*/
+        items.add(new ItemStack(id, 1, 0));
+        
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setBoolean("decaf", true);
+        ItemStack coffee = new ItemStack(id, 1, 0);
+        coffee.setTagCompound(tag);
+        items.add(coffee);
+        
+        tag = new NBTTagCompound();
+        tag.setInteger("sugar", 1);
+        coffee = new ItemStack(id, 1, 0);
+        coffee.setTagCompound(tag);
+        items.add(coffee);
+        
+        tag = new NBTTagCompound();
+        tag.setInteger("poison", 1);
+        coffee = new ItemStack(id, 1, 0);
+        coffee.setTagCompound(tag);
+        items.add(coffee);
+        
+        tag = new NBTTagCompound();
+        tag.setInteger("milk", 1);
+        coffee = new ItemStack(id, 1, 0);
+        coffee.setTagCompound(tag);
+        items.add(coffee);
+    }
 }

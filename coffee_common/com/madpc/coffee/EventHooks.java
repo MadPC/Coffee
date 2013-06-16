@@ -14,10 +14,11 @@ public class EventHooks {
         if (event.entityLiving.isPotionActive(Coffee.caffeine)) {
             PotionEffect caffeine = event.entityLiving.getActivePotionEffect(Coffee.caffeine);
             int duration = caffeine.getDuration();
-            if (duration > 600) event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 2, 1));
-            else event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 1));
+            int amplifier = caffeine.getAmplifier();
+            if (duration > 600) event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 2, amplifier));
+            else event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, amplifier));
             
-            if (caffeine.getAmplifier() == 4) {
+            if (amplifier == 4) {
                 event.entityLiving.attackEntityFrom(new DamageSourceCaffeine(), 1000);
                 event.entityLiving.worldObj.createExplosion(event.entityLiving, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, 2.0F, false);
                 event.entityLiving.removePotionEffect(Coffee.caffeine.getId());
