@@ -21,6 +21,7 @@ public class BiomeGenCoffee extends BiomeGenBase {
         this.spawnableCreatureList.clear();
         this.spawnableWaterCreatureList.clear();
         this.spawnableCaveCreatureList.clear();
+        this.setBiomeName("Coffee, Not Tea");
     }
     public WorldGenerator getRandomWorldGenForTrees(Random par1Random)
     {
