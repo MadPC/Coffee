@@ -1,7 +1,9 @@
 package com.madpc.coffee;
 
 import net.minecraft.potion.Potion;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
@@ -20,6 +22,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class Coffee {
     
     public static final Potion caffeine = new PotionCaffeine(21, false, 0x00FF00).setPotionName("Caffeine");
+    
     public static BiomeGenBase coffeeBiome;
     
     @Instance("Coffee")
@@ -32,5 +35,7 @@ public class Coffee {
         coffeeBiome = new BiomeGenCoffee(122);
         
         GameRegistry.addBiome(coffeeBiome);
+        
+        MinecraftForge.EVENT_BUS.register(new EventHooks());
     }
 }

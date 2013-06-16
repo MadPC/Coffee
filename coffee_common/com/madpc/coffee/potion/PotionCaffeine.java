@@ -8,8 +8,9 @@ public class PotionCaffeine extends Potion {
         super(par1, par2, par3);
     }
     
-    public boolean isReady(int par1, int par2) {
-        return true;
+    public Potion setIconIndex(int par1, int par2) {
+        super.setIconIndex(par1, par2);
+        return this;
     }
     
 }
