@@ -1,5 +1,6 @@
 package com.madpc.coffee;
 
+import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.potion.PotionCaffeine;
 
@@ -20,6 +21,6 @@ public class Coffee {
     
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
-        
+        ModItems.init();
     }
 }
