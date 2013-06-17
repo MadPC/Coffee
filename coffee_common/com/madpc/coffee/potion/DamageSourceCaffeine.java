@@ -2,20 +2,21 @@ package com.madpc.coffee.potion;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 
 public class DamageSourceCaffeine extends DamageSource {
     
-    public String[] messages = {
-            "Wait, <P> had how much coffee?",
-            "<P> couldn't handle their coffee",
-            "<P> added too much boom to their coffee",
-            "<P>'s liver punched them for drinking too much caffeine",
-            "<P> learned that too much caffeine isn't good for you",
-            "<P> learned that faster-than-light travel is not possible with caffeine",
-            "<P> learned that they should switch to decaf",
-            "<P> should have added cream, not gunpowder",
-            "<P> learned how to not use caffeine",
-            "<P> Shartted from caffeiene overdose"
+    public static final String[] messages = {
+            StatCollector.translateToLocal("coffee.death.1"),
+            StatCollector.translateToLocal("coffee.death.2"),
+            StatCollector.translateToLocal("coffee.death.3"),
+            StatCollector.translateToLocal("coffee.death.4"),
+            StatCollector.translateToLocal("coffee.death.5"),
+            StatCollector.translateToLocal("coffee.death.6"),
+            StatCollector.translateToLocal("coffee.death.7"),
+            StatCollector.translateToLocal("coffee.death.8"),
+            StatCollector.translateToLocal("coffee.death.9"),
+            StatCollector.translateToLocal("coffee.death.10"),
     };
     
     public DamageSourceCaffeine() {
