@@ -2,4 +2,19 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
 	<comment>German (de_DE) Localization File</comment>
+		<entry key="item.Coffee.name">Kaffee</entry>
+		<entry key="item.coffeeBeans.name">Kaffee bohnen</entry>
+		<entry key="block.coffeeMaker.name">Kaffee Pro 1000</entry>
+		<entry key="coffee.effect.posion">Gift</entry>
+		<entry key="coffee.effect.decaf">Decaf</entry>
+		<entry key="coffee.death.1">Warten, <P> hatte wie viel kaffee?</entry>
+		<entry key="coffee.death.2"><P> nicht umgehen konnte ihren kaffee</entry>
+		<entry key="coffee.death.3"><P> aufgenommen zu viel Boom ihren kaffee</entry>
+		<entry key="coffee.death.4"><P>'s leber gestanzt sie zum Trinken zu viel koffein</entry>
+		<entry key="coffee.death.5"><P> gelernt, dass zu viel Koffein ist nicht gut für Sie</entry>
+		<entry key="coffee.death.6"><P> gelernt, dass schneller als das Licht reisen nicht möglich mit Koffein</entry>
+		<entry key="coffee.death.7"><P> gelernt, dass sie auf koffeinfreien wechseln</entry>
+		<entry key="coffee.death.8"><P> sollte hinzugefügt haben Rahm, weder Schiebpulver</entry>
+		<entry key="coffee.death.9"><P> gelernt, wie man nicht verwenden Koffein</entry>
+		<entry key="coffee.death.10"><P> erschüttert von Coffeinüberdosierung</entry>
 </properties>
