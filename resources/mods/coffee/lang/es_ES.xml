@@ -2,4 +2,19 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
 	<comment>Spanish (es_ES) Localization File</comment>
+	    <entry key="item.Coffee.name">Café</entry>
+		<entry key="item.coffeeBeans.name">Café frijoles</entry>
+		<entry key="block.coffeeMaker.name">Café Pro 1000</entry>
+		<entry key="coffee.effect.posion">Tóxico</entry>
+		<entry key="coffee.effect.decaf">descafeinado</entry>
+		<entry key="coffee.death.1">Espere, <P> tenía la cantidad de café?</entry>
+		<entry key="coffee.death.2"><P> no podía manejar su café</entry>
+		<entry key="coffee.death.3"><P> agregado demasiado auge de su café</entry>
+		<entry key="coffee.death.4"><P>'s hígado los golpeó por beber demasiada cafeína</entry>
+		<entry key="coffee.death.5"><P> se enteró de que el exceso de cafeína no es bueno para ti</entry>
+		<entry key="coffee.death.6"><P> aprendido que viaje más rápido que la luz no es posible con la cafeína</entry>
+		<entry key="coffee.death.7"><P> se enteró de que deben cambiar a descafeinado</entry>
+		<entry key="coffee.death.8"><P> debería haber añadido nata, sin pólvora</entry>
+		<entry key="coffee.death.9"><P> aprendido a no utilizar la cafeína</entry>
+		<entry key="coffee.death.10"><P> destrozado por sobredosis de cafeína</entry>
 </properties>

@@ -5,16 +5,16 @@
 		<entry key="item.Coffee.name">Coffee</entry>
 		<entry key="item.coffeeBeans.name">Coffee beans</entry>
 		<entry key="block.coffeeMaker.name">Coffee Pro 1000</entry>
-		<entry key="coffee.effect.posion">Poisonous </entry>
-		<entry key="coffee.effect.decaf">Decaf </entry>
+		<entry key="coffee.effect.posion">Poison</entry>
+		<entry key="coffee.effect.decaf">Decaf</entry>
 		<entry key="coffee.death.1">Wait, <P> had how much coffee?</entry>
 		<entry key="coffee.death.2"><P> couldn't handle their coffee</entry>
 		<entry key="coffee.death.3"><P> added too much boom to their coffee</entry>
 		<entry key="coffee.death.4"><P>'s liver punched them for drinking too much caffeine</entry>
 		<entry key="coffee.death.5"><P> learned that too much caffeine isn't good for you</entry>
 		<entry key="coffee.death.6"><P> learned that faster-than-light travel not possible with caffeine</entry>
-		<entry key="coffee.death.7"><P> learned that they should switch to de-caf</entry>
+		<entry key="coffee.death.7"><P> learned that they should switch to decaf</entry>
 		<entry key="coffee.death.8"><P> should have added cream, not gunpowder</entry>
 		<entry key="coffee.death.9"><P> learned how to not use caffeine</entry>
-		<entry key="coffee.death.10"><P> Shartted from caffeiene overdose</entry>
+		<entry key="coffee.death.10"><P> shattered from caffeine overdose</entry>
 </properties>
