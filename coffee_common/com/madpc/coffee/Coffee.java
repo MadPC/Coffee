@@ -23,16 +23,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class Coffee {
-    
-    public static final Potion caffeine = new PotionCaffeine(21, false, 0x00FF00).setPotionName("Caffeine");
-    
-    public static BiomeGenBase coffeeBiome;
-    
-    
-    public static Block BlockCoffeaLeaves;
-    
-    @Instance("Coffee")
+    @Instance(Reference.MOD_ID)
     public static Coffee instance;
+
+    public static final Potion caffeine = new PotionCaffeine(21, false, 0x00FF00).setPotionName("Caffeine");
+    public static BiomeGenBase coffeeBiome;
+    public static Block BlockCoffeaLeaves;
     
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
