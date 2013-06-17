@@ -14,6 +14,7 @@ public class BlockCoffeeMaker extends BlockContainer {
     
     public BlockCoffeeMaker(int par1) {
         super(par1, Material.rock);
+        setUnlocalizedName("Coffee Pro 1000");
     }
     
     @Override
