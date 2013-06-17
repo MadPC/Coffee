@@ -3,7 +3,7 @@
 <properties version="1.0">
 		<comment> English (en_US) Localization File </comment>
 		<entry key="item.Coffee.name">Coffee</entry>
-		<entry key="item.coffee_beans.name">Coffee beans</entry>
+		<entry key="item.coffeeBeans.name">Coffee beans</entry>
 		<entry key="coffee.effect.posion">Poisonous </entry>
 		<entry key="coffee.effect.decaf">Decaf </entry>
 		<entry key="coffee.death.1">Wait, <P> had how much coffee?</entry>
