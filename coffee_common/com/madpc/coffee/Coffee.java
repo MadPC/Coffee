@@ -5,6 +5,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 
+import com.madpc.coffee.block.ModBlocks;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.potion.PotionCaffeine;
@@ -25,6 +26,7 @@ public class Coffee {
     
     public static BiomeGenBase coffeeBiome;
     
+    
     public static Block BlockCoffeaLeaves;
     
     @Instance("Coffee")
@@ -33,6 +35,7 @@ public class Coffee {
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
         ModItems.init();
+        ModBlocks.init();
         
         coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
         

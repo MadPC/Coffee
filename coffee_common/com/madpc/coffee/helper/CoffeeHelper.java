@@ -2,9 +2,9 @@ package com.madpc.coffee.helper;
 
 import java.util.List;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 import com.madpc.coffee.item.ModItems;
 
@@ -37,6 +37,11 @@ public class CoffeeHelper {
         if (n > 0) lines.add("Makes you hyper");
         
         n = tag.getInteger("poison");
-        if (n > 0) lines.add("May or may not kill you"); 
+        if (n > 0) lines.add("May or may not kill you");
+    }
+    
+    public static boolean isSpice(int id) {
+        return id == Item.bucketMilk.itemID || id == Item.sugar.itemID
+                || id == Item.spiderEye.itemID;
     }
 }
