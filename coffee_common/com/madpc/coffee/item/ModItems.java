@@ -1,6 +1,9 @@
 package com.madpc.coffee.item;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.Item;
 
 public class ModItems {

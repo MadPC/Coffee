@@ -15,9 +15,9 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         ISidedInventory {
     
     /**
-     * 0 = Beans, 1 = Filter, 2 = Water, 3 - 8 = spices
+     * 0 = Beans, 1 = Filter, 2 = Water, 3 - 6 = spices, 7 = output
      */
-    public ItemStack[] inventory = new ItemStack[9];
+    public ItemStack[] inventory = new ItemStack[8];
     public int waterLevel = 0;
     public final int maxWaterLevel = 0;
     
@@ -105,8 +105,6 @@ public class TileEntityCoffeeMaker extends TileEntity implements
             case 4:
             case 5:
             case 6:
-            case 7:
-            case 8:
                 return CoffeeHelper.isSpice(stack.itemID);
             default:
                 return false;

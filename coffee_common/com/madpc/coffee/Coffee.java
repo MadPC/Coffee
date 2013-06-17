@@ -2,6 +2,7 @@ package com.madpc.coffee;
 
 import net.minecraft.block.Block;
 import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -9,6 +10,7 @@ import com.madpc.coffee.block.ModBlocks;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.potion.PotionCaffeine;
+import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 import com.madpc.coffee.world.BiomeGenCoffee;
 
 import cpw.mods.fml.common.Mod;
@@ -37,8 +39,9 @@ public class Coffee {
         ModItems.init();
         ModBlocks.init();
         
-        coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
+        TileEntity.addMapping(TileEntityCoffeeMaker.class, "Coffee Maker");
         
+        coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
         GameRegistry.addBiome(coffeeBiome);
         
         MinecraftForge.EVENT_BUS.register(new EventHooks());
