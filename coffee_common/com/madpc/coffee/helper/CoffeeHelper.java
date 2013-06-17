@@ -25,7 +25,7 @@ public class CoffeeHelper {
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         
         NBTTagCompound tag = stack.getTagCompound();
-        if (tag.getBoolean("decaf")) lines.add("Not nearly as cool as caffinated");
+        if (tag.getBoolean("decaf")) lines.add("Not nearly as cool as caffiened coffee");
         else lines.add("Gives a nice little buzz");
         
         int n;
@@ -34,10 +34,10 @@ public class CoffeeHelper {
         if (n > 0) lines.add("Fills you up");
         
         n = tag.getInteger("sugar");
-        if (n > 0) lines.add("Makes you hyper");
+        if (n > 0) lines.add("Takes you on a sugar rush");
         
         n = tag.getInteger("poison");
-        if (n > 0) lines.add("May or may not kill you");
+        if (n > 0) lines.add("Side effect of death");
     }
     
     public static boolean isSpice(int id) {
