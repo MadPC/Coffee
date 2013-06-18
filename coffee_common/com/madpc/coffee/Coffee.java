@@ -53,6 +53,7 @@ public class Coffee {
         ModBlocks.init();
                 
         proxy.registerTileEntities();
+        proxy.registerRenderers();
         
         coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
         GameRegistry.addBiome(coffeeBiome);

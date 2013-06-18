@@ -31,6 +31,16 @@ public class BlockCoffeeMaker extends BlockContainer {
     }
     
     @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+    
+    @Override
+    public int getRenderType() {
+        return Reference.coffeeMakerRenderer;
+    }
+    
+    @Override
     public void breakBlock(World world, int x, int y, int z, int id, int meta) {
         //dropInventory(world, x, y, z);
         super.breakBlock(world, x, y, z, id, meta);
@@ -43,7 +53,7 @@ public class BlockCoffeeMaker extends BlockContainer {
             TileEntityCoffeeMaker entity = (TileEntityCoffeeMaker) worldObj.getBlockTileEntity(x, y, z);
             
             System.out.println("Opening GUI");
-            if (entity != null) player.openGui(Coffee.instance, Reference.guiCoffeeMakerID, worldObj, x, y, z);
+            if (entity != null) player.openGui(Coffee.instance, Reference.coffeeMaker, worldObj, x, y, z);
         }
         
         return true;
@@ -51,6 +61,7 @@ public class BlockCoffeeMaker extends BlockContainer {
     
     @Override
     public void registerIcons(IconRegister register) {
-        register.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName());
+        register.registerIcon(Reference.MOD_ID + ":"
+                + this.getUnlocalizedName());
     }
 }

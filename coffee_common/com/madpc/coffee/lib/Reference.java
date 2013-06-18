@@ -5,5 +5,6 @@ public class Reference {
     public static final String MOD_NAME = "Coffee!";
     public static final String VERSION = "0.1-dev";
     
-    public static final int guiCoffeeMakerID = 200;
+    public static final int coffeeMaker = 200;
+    public static int coffeeMakerRenderer;
 }

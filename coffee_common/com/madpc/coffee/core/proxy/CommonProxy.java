@@ -17,15 +17,17 @@ public class CommonProxy implements IGuiHandler {
         GameRegistry.registerTileEntity(TileEntityCoffeeMaker.class, "tile.coffeeMaker");
     }
     
+    public void registerRenderers() {}
+    
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == Reference.guiCoffeeMakerID) return new ContainerCoffeeMaker(player.inventory, (TileEntityCoffeeMaker) world.getBlockTileEntity(x, y, z));
+        if (ID == Reference.coffeeMaker) return new ContainerCoffeeMaker(player.inventory, (TileEntityCoffeeMaker) world.getBlockTileEntity(x, y, z));
         return null;
     }
     
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == Reference.guiCoffeeMakerID) return new GuiCoffeeMaker(player, (TileEntityCoffeeMaker) world.getBlockTileEntity(x, y, z));
+        if (ID == Reference.coffeeMaker) return new GuiCoffeeMaker(player, (TileEntityCoffeeMaker) world.getBlockTileEntity(x, y, z));
         return null;
     }
     
