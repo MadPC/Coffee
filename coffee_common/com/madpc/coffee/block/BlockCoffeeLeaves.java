@@ -3,6 +3,9 @@ package com.madpc.coffee.block;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.madpc.coffee.Coffee;
+import com.madpc.coffee.lib.Strings;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -26,6 +29,8 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
     protected BlockCoffeeLeaves(int par1) {
         super(par1);
         this.setTickRandomly(true);
+        this.setCreativeTab(Coffee.tabsCoffee);
+        this.setUnlocalizedName(Strings.COFFEE_LEAVES_NAME);
     }
     
     @SideOnly(Side.CLIENT)

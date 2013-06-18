@@ -9,13 +9,15 @@ import net.minecraft.world.World;
 
 import com.madpc.coffee.Coffee;
 import com.madpc.coffee.lib.Reference;
+import com.madpc.coffee.lib.Strings;
 import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 
 public class BlockCoffeeMaker extends BlockContainer {
     
     public BlockCoffeeMaker(int par1) {
         super(par1, Material.rock);
-        setUnlocalizedName("Coffee Pro 1000");
+        this.setUnlocalizedName(Strings.COFFEE_MAKER_NAME);
+        this.setCreativeTab(Coffee.tabsCoffee);
     }
     
     @Override

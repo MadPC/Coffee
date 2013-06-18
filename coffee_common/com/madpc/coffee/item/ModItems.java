@@ -1,9 +1,5 @@
 package com.madpc.coffee.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.Item;
 
 public class ModItems {
@@ -12,8 +8,8 @@ public class ModItems {
     public static Item coffeeFilter;
     
     public static void init() {
-        coffee = new ItemCoffee(1200).setUnlocalizedName("coffee").setCreativeTab(CreativeTabs.tabFood);
-        coffeeBeans = new ItemCustom(1201).setUnlocalizedName("coffeeBeans").setCreativeTab(CreativeTabs.tabMisc);
-        coffeeFilter = new ItemCustom(1202).setUnlocalizedName("coffeeFilter").setCreativeTab(CreativeTabs.tabMisc);
+        coffee = new ItemCoffee(1200);
+        coffeeBeans = new ItemCustom(1201);
+        coffeeFilter = new ItemCustom(1202);
     }
 }

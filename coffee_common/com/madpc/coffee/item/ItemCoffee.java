@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 
 import com.madpc.coffee.Coffee;
 import com.madpc.coffee.helper.CoffeeHelper;
+import com.madpc.coffee.lib.Strings;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,6 +23,8 @@ public class ItemCoffee extends ItemCustom {
     
     public ItemCoffee(int id) {
         super(id);
+        this.setCreativeTab(Coffee.tabsCoffee);
+        this.setUnlocalizedName(Strings.COFFEE_NAME);
     }
     
     @Override

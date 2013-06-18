@@ -1,12 +1,15 @@
 package com.madpc.coffee;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.madpc.coffee.block.ModBlocks;
 import com.madpc.coffee.core.proxy.CommonProxy;
+import com.madpc.coffee.creativetab.CreativeTabCoffee;
+import com.madpc.coffee.handler.LocalizationHandler;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.potion.PotionCaffeine;
@@ -41,11 +44,14 @@ public class Coffee {
     @SidedProxy(serverSide = "com.madpc.coffee.core.proxy.CommonProxy", clientSide = "com.madpc.coffee.core.proxy.ClientProxy")
     public static CommonProxy proxy;
     
+    public static CreativeTabs tabsCoffee = new CreativeTabCoffee(CreativeTabs.getNextID(), Reference.MOD_ID);
+    
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
+        LocalizationHandler.loadLanguages();
         ModItems.init();
         ModBlocks.init();
-        
+                
         proxy.registerTileEntities();
         
         coffeeBiome = new BiomeGenCoffee(122).func_76733_a(0x8EDA61);
