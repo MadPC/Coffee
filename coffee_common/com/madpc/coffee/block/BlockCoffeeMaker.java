@@ -2,6 +2,7 @@ package com.madpc.coffee.block;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -9,7 +10,6 @@ import net.minecraft.world.World;
 import com.madpc.coffee.Coffee;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
-import com.madpc.coffee.util.LogHelper;
 
 public class BlockCoffeeMaker extends BlockContainer {
     
@@ -45,5 +45,10 @@ public class BlockCoffeeMaker extends BlockContainer {
         }
         
         return true;
+    }
+    
+    @Override
+    public void registerIcons(IconRegister register) {
+        register.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName());
     }
 }

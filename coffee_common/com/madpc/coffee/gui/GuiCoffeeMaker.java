@@ -36,6 +36,8 @@ public class GuiCoffeeMaker extends GuiContainer {
         
         int progress = this.inventory.getProgressScaled(24);
         this.drawTexturedModalRect(x + 79, y + 34, 176, 14, progress + 1, 16);
+        
+        // Water level at 176, 31
     }
     
 }

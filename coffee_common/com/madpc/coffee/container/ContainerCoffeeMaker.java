@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import com.madpc.coffee.helper.CoffeeHelper;
 import com.madpc.coffee.item.ModItems;
@@ -19,13 +20,13 @@ public class ContainerCoffeeMaker extends Container {
     public ContainerCoffeeMaker(InventoryPlayer playerInv, TileEntityCoffeeMaker entity) {
         this.inventory = entity;
         
-        this.addSlotToContainer(new Slot(entity, 0, 44, 17));
-        this.addSlotToContainer(new Slot(entity, 1, 80, 57));
-        this.addSlotToContainer(new Slot(entity, 2, 8, 44));
-        this.addSlotToContainer(new Slot(entity, 3, 35, 35));
-        this.addSlotToContainer(new Slot(entity, 4, 53, 35));
-        this.addSlotToContainer(new Slot(entity, 5, 35, 53));
-        this.addSlotToContainer(new Slot(entity, 6, 53, 53));
+        this.addSlotToContainer(new Slot(entity, 0, 44, 6));
+        this.addSlotToContainer(new Slot(entity, 1, 72, 35));
+        this.addSlotToContainer(new Slot(entity, 2, 44, 62));
+        this.addSlotToContainer(new Slot(entity, 3, 35, 25));
+        this.addSlotToContainer(new Slot(entity, 4, 53, 25));
+        this.addSlotToContainer(new Slot(entity, 5, 35, 43));
+        this.addSlotToContainer(new Slot(entity, 6, 53, 43));
         this.addSlotToContainer(new Slot(entity, 7, 125, 33));
         
         // Inventory
@@ -71,7 +72,8 @@ public class ContainerCoffeeMaker extends Container {
             
         }
         
-        return r;
+        // I think this is wrong, but seems to make it work...
+        return null;
     }
     
 }
