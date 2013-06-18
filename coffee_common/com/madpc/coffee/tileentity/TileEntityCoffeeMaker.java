@@ -20,6 +20,15 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     public ItemStack[] inventory = new ItemStack[8];
     public int waterLevel = 0;
     public final int maxWaterLevel = 0;
+    public String customName;
+    
+    public String getCustomName() {
+        return customName;
+    }
+    
+    public void setCustomName(String s) {
+        this.customName = s;
+    }
     
     public int getProgressScaled(int i) {
         return 0;
@@ -53,7 +62,9 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
-        return null;
+        ItemStack r = this.getStackInSlot(slot);
+        if (r != null) this.setInventorySlotContents(slot, null);
+        return r;
     }
     
     @Override
@@ -64,12 +75,12 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public String getInvName() {
-        return "container.coffeeMaker";
+        return this.isInvNameLocalized() ? this.getCustomName() : "container.coffeeMaker";
     }
     
     @Override
     public boolean isInvNameLocalized() {
-        return false;
+        return this.customName != null;
     }
     
     @Override

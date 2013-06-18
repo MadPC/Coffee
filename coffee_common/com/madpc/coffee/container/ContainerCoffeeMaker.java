@@ -3,16 +3,13 @@ package com.madpc.coffee.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 
+import com.madpc.coffee.helper.CoffeeHelper;
+import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ContainerCoffeeMaker extends Container {
     
@@ -34,7 +31,7 @@ public class ContainerCoffeeMaker extends Container {
         // Inventory
         for (int y = 0; y < 3; ++y)
             for (int x = 0; x < 9; ++x)
-                this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
+                this.addSlotToContainer(new Slot(playerInv, y * 9 + x + 9, 8 + x * 18, 84 + y * 18));
         
         // Quick bar
         for (int slot = 0; slot < 9; ++slot)
@@ -47,21 +44,6 @@ public class ContainerCoffeeMaker extends Container {
     }
     
     @Override
-    public void addCraftingToCrafters(ICrafting crafter) {
-        
-    }
-    
-    public void detectAndSendChanges() {
-        
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int par1, int par2) {
-        
-    }
-    
-    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int source) {
         ItemStack r = null;
         Slot slot = (Slot) this.inventorySlots.get(source);
@@ -70,11 +52,23 @@ public class ContainerCoffeeMaker extends Container {
             ItemStack slotStack = slot.getStack();
             r = slotStack.copy();
             
-            if (source < 8)
-                if (!this.mergeItemStack(slotStack, 8, inventorySlots.size(), false))
-                    return null;
+            if (source < 8) {
+                if (!this.mergeItemStack(slotStack, 8, inventorySlots.size(), false)) return null;
+            } else {
+                if (CoffeeHelper.isSpice(slotStack.itemID)) {
+                    if (!this.mergeItemStack(slotStack, 3, 7, false)) if (!this.mergeItemStack(slotStack, 4, 7, false)) if (!this.mergeItemStack(slotStack, 5, 7, false)) if (!this.mergeItemStack(slotStack, 6, 7, false)) return null;
+                } else if (slotStack.itemID == ModItems.coffeeBeans.itemID) {
+                    if (!this.mergeItemStack(slotStack, 0, 7, false)) return null;
+                } else if (slotStack.itemID == ModItems.coffeeFilter.itemID) {
+                    if (!this.mergeItemStack(slotStack, 1, 7, false)) return null;
+                } else if (slotStack.itemID == Item.bucketWater.itemID) {
+                    if (!this.mergeItemStack(slotStack, 2, 7, false)) return null;
+                }
+            }
             
-            slot.onPickupFromSlot(player, slotStack);
+            if (slotStack.stackSize == 0) slot.putStack((ItemStack) null);
+            else slot.onSlotChanged();
+            
         }
         
         return r;
