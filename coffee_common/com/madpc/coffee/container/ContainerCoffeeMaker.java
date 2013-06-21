@@ -6,9 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-import com.madpc.coffee.helper.CoffeeHelper;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 
@@ -46,25 +44,23 @@ public class ContainerCoffeeMaker extends Container {
     
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int source) {
-        ItemStack r = null;
         Slot slot = (Slot) this.inventorySlots.get(source);
         
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();
-            r = slotStack.copy();
             
             if (source < 8) {
                 if (!this.mergeItemStack(slotStack, 8, inventorySlots.size(), false)) return null;
             } else {
-                if (CoffeeHelper.isSpice(slotStack.itemID)) {
-                    if (!this.mergeItemStack(slotStack, 3, 7, false)) if (!this.mergeItemStack(slotStack, 4, 7, false)) if (!this.mergeItemStack(slotStack, 5, 7, false)) if (!this.mergeItemStack(slotStack, 6, 7, false)) return null;
-                } else if (slotStack.itemID == ModItems.coffeeBeans.itemID) {
+                if (slotStack.itemID == ModItems.coffeeBeans.itemID) {
                     if (!this.mergeItemStack(slotStack, 0, 7, false)) return null;
                 } else if (slotStack.itemID == ModItems.coffeeFilter.itemID) {
                     if (!this.mergeItemStack(slotStack, 1, 7, false)) return null;
                 } else if (slotStack.itemID == Item.bucketWater.itemID) {
                     if (!this.mergeItemStack(slotStack, 2, 7, false)) return null;
                 }
+                
+                if (!this.mergeItemStack(slotStack, 3, 7, false)) if (!this.mergeItemStack(slotStack, 4, 7, false)) if (!this.mergeItemStack(slotStack, 5, 7, false)) if (!this.mergeItemStack(slotStack, 6, 7, false)) return null;
             }
             
             if (slotStack.stackSize == 0) slot.putStack((ItemStack) null);

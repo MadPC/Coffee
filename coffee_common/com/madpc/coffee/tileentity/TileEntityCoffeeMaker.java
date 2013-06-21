@@ -10,9 +10,11 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
 import com.madpc.coffee.helper.CoffeeHelper;
 import com.madpc.coffee.item.ModItems;
+import com.madpc.coffee.util.LogHelper;
 
 public class TileEntityCoffeeMaker extends TileEntity implements
         ISidedInventory {
@@ -22,10 +24,13 @@ public class TileEntityCoffeeMaker extends TileEntity implements
      */
     public ItemStack[] inventory = new ItemStack[8];
     public int progress = 0;
-    public int maxProgess = 200;
+    public int maxProgress = 200;
     public int waterLevel = 0;
-    public final int maxWaterLevel = 16;
+    public int maxWaterLevel = 16;
     public String customName;
+    
+    public final int[] slotsDefault = {0, 1, 2, 3, 4, 5, 6};
+    public final int[] slotsBottom = {7};
     
     public String getCustomName() {
         return customName;
@@ -36,7 +41,7 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     public int getProgressScaled(int i) {
-        return 0;
+        return progress * i / maxProgress;
     }
     
     public int getWaterScaled(int i) {
@@ -112,6 +117,10 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         
     }
     
+    public int getStartInventorySide(ForgeDirection side) {
+        return 0;
+    }
+    
     @Override
     public boolean isStackValidForSlot(int slot, ItemStack stack) {
         switch (slot) {
@@ -133,7 +142,8 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return null;
+        if (side == 0) return slotsBottom;
+        return slotsDefault;
     }
     
     @Override
@@ -158,6 +168,9 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         }
         
         this.waterLevel = tag.getInteger("waterLevel");
+        //this.maxWaterLevel = tag.getInteger("maxWaterLevel");
+        this.progress = tag.getInteger("progress");
+        //this.maxProgress = tag.getInteger("maxProgress");
     }
     
     @Override
@@ -174,6 +187,9 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         
         tag.setTag("inventory", invTag);
         tag.setInteger("waterLevel", this.waterLevel);
+        tag.setInteger("maxWaterLevel", this.maxWaterLevel);
+        tag.setInteger("progress", this.progress);
+        tag.setInteger("maxProgress", this.maxProgress);
     }
     
     @Override
