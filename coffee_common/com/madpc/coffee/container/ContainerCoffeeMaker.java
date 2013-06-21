@@ -20,14 +20,14 @@ public class ContainerCoffeeMaker extends Container {
     public ContainerCoffeeMaker(InventoryPlayer playerInv, TileEntityCoffeeMaker entity) {
         this.inventory = entity;
         
-        this.addSlotToContainer(new Slot(entity, 0, 44, 6));
-        this.addSlotToContainer(new Slot(entity, 1, 72, 35));
-        this.addSlotToContainer(new Slot(entity, 2, 44, 62));
+        this.addSlotToContainer(new Slot(entity, 0, 73, 24));
+        this.addSlotToContainer(new Slot(entity, 1, 73, 44));
+        this.addSlotToContainer(new Slot(entity, 2, 15, 35));
         this.addSlotToContainer(new Slot(entity, 3, 35, 25));
         this.addSlotToContainer(new Slot(entity, 4, 53, 25));
         this.addSlotToContainer(new Slot(entity, 5, 35, 43));
         this.addSlotToContainer(new Slot(entity, 6, 53, 43));
-        this.addSlotToContainer(new Slot(entity, 7, 125, 33));
+        this.addSlotToContainer(new Slot(entity, 7, 141, 34));
         
         // Inventory
         for (int y = 0; y < 3; ++y)

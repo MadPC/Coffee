@@ -21,8 +21,10 @@ public class TileEntityCoffeeMaker extends TileEntity implements
      * 0 = Beans, 1 = Filter, 2 = Water, 3 - 6 = spices, 7 = output
      */
     public ItemStack[] inventory = new ItemStack[8];
+    public int progress = 0;
+    public int maxProgess = 200;
     public int waterLevel = 0;
-    public final int maxWaterLevel = 0;
+    public final int maxWaterLevel = 16;
     public String customName;
     
     public String getCustomName() {
@@ -35,6 +37,10 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     public int getProgressScaled(int i) {
         return 0;
+    }
+    
+    public int getWaterScaled(int i) {
+        return waterLevel * i / maxWaterLevel;
     }
     
     @Override
