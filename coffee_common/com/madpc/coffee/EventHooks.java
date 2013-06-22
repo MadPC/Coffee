@@ -38,10 +38,10 @@ public class EventHooks {
         }
         
         // Fixes effects stuck at 0:00
-        Iterator ieffects = event.entityLiving.getActivePotionEffects().iterator();
+        /*Iterator ieffects = event.entityLiving.getActivePotionEffects().iterator();
         while (ieffects.hasNext()) {
             PotionEffect effect = (PotionEffect) ieffects.next();
             if (effect.getDuration() <= 0) event.entityLiving.removePotionEffect(effect.getPotionID());
-        }
+        }*/
     }
 }

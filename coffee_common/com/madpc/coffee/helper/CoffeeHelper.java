@@ -44,4 +44,20 @@ public class CoffeeHelper {
         return id == Item.bucketMilk.itemID || id == Item.sugar.itemID
                 || id == Item.spiderEye.itemID;
     }
+    
+    public static ItemStack getResult(ItemStack... spices) {
+        ItemStack result = new ItemStack(ModItems.coffee.itemID, 1, 0);
+        NBTTagCompound tag = new NBTTagCompound();
+        for (ItemStack spice : spices) {
+            if (spice == null) continue;
+            if (spice.itemID == Item.bucketMilk.itemID)
+                tag.setInteger("milk", tag.getInteger("milk") + spice.stackSize);
+            else if (spice.itemID == Item.spiderEye.itemID)
+                tag.setInteger("poison", tag.getInteger("poison") + spice.stackSize);
+            else if (spice.itemID == Item.sugar.itemID)
+                tag.setInteger("sugar", tag.getInteger("sugar") + spice.stackSize);
+        }
+        result.setTagCompound(tag);
+        return result;
+    }
 }

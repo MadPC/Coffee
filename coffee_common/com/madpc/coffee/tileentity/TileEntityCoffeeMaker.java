@@ -10,11 +10,9 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
 
 import com.madpc.coffee.helper.CoffeeHelper;
 import com.madpc.coffee.item.ModItems;
-import com.madpc.coffee.util.LogHelper;
 
 public class TileEntityCoffeeMaker extends TileEntity implements
         ISidedInventory {
@@ -29,8 +27,12 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     public int maxWaterLevel = 16;
     public String customName;
     
-    public final int[] slotsDefault = {0, 1, 2, 3, 4, 5, 6};
-    public final int[] slotsBottom = {7};
+    public final int[] slotsDefault = {
+            0, 1, 2, 3, 4, 5, 6
+    };
+    public final int[] slotsBottom = {
+        7
+    };
     
     public String getCustomName() {
         return customName;
@@ -117,8 +119,51 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         
     }
     
-    public int getStartInventorySide(ForgeDirection side) {
-        return 0;
+    public boolean canMakeCoffee() {
+        if (this.inventory[0] == null) return false;
+        if (this.inventory[1] == null) return false;
+        if (this.waterLevel <= 0) return false;
+        if (this.inventory[7] == null) return true;
+        ItemStack coffee = CoffeeHelper.getResult(this.inventory[3], this.inventory[4], this.inventory[5], this.inventory[6]);
+        if (!this.inventory[7].isItemEqual(coffee)) return false;
+        int result = this.inventory[7].stackSize + coffee.stackSize;
+        return result <= this.getInventoryStackLimit()
+                && result <= coffee.getMaxStackSize();
+    }
+    
+    @Override
+    public void updateEntity() {
+        boolean invChanged = false;
+        if (this.isInvalid()) System.out.println("Invalid Tile Entity");
+        
+        if (!this.worldObj.isRemote) {
+            if (this.waterLevel < this.maxWaterLevel && this.inventory[2] != null && this.inventory[2].itemID == Item.bucketWater.itemID) {
+                ++this.waterLevel;
+                this.inventory[2] = new ItemStack(Item.bucketEmpty, 0, 1);
+                invChanged = true;
+            }
+            
+            if (this.canMakeCoffee()) {
+                if (++this.progress >= this.maxProgress) {
+                    this.progress = 0;
+                    
+                    // Brew the coffee
+                    ItemStack result = CoffeeHelper.getResult(this.inventory[3], this.inventory[4], this.inventory[5], this.inventory[6]);
+                    if (this.inventory[7] == null) this.inventory[7] = result.copy();
+                    else this.inventory[7].stackSize += result.stackSize;
+                    --this.inventory[0].stackSize;
+                    if (this.inventory[0].stackSize <= 0) this.inventory[0] = null;
+                    this.inventory[1].attemptDamageItem(1, worldObj.rand);
+                    --this.waterLevel;
+                    
+                    invChanged = true;
+                }
+            }
+        }
+        
+        if (invChanged) {
+            this.onInventoryChanged();
+        }
     }
     
     @Override

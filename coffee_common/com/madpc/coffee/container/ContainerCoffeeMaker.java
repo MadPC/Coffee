@@ -3,6 +3,7 @@ package com.madpc.coffee.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,10 +11,15 @@ import net.minecraft.item.ItemStack;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ContainerCoffeeMaker extends Container {
     
     public EntityPlayer player;
     public TileEntityCoffeeMaker inventory;
+    public int lastProgress;
+    public int lastWaterLevel;
     
     public ContainerCoffeeMaker(InventoryPlayer playerInv, TileEntityCoffeeMaker entity) {
         this.inventory = entity;
@@ -45,9 +51,11 @@ public class ContainerCoffeeMaker extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int source) {
         Slot slot = (Slot) this.inventorySlots.get(source);
+        ItemStack r = null;
         
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();
+            r = slotStack.copy();
             
             if (source < 8) {
                 if (!this.mergeItemStack(slotStack, 8, inventorySlots.size(), false)) return null;
@@ -68,8 +76,40 @@ public class ContainerCoffeeMaker extends Container {
             
         }
         
-        // I think this is wrong, but seems to make it work...
-        return null;
+        return r;
     }
     
+    @Override
+    public void addCraftingToCrafters(ICrafting crafter) {
+        super.addCraftingToCrafters(crafter);
+        crafter.sendProgressBarUpdate(this, 0, this.inventory.progress);
+        crafter.sendProgressBarUpdate(this, 1, this.inventory.waterLevel);
+    }
+    
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        
+        for (int i = 0; i < this.crafters.size(); ++i) {
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            if (this.lastProgress != this.inventory.progress) icrafting.sendProgressBarUpdate(this, 0, this.inventory.progress);
+            if (this.lastWaterLevel != this.inventory.waterLevel) icrafting.sendProgressBarUpdate(this, 0, this.inventory.waterLevel);
+        }
+        
+        this.lastProgress = this.inventory.progress;
+        this.lastWaterLevel = this.inventory.waterLevel;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int property, int value) {
+        switch (property) {
+            case 0:
+                this.inventory.progress = value;
+                break;
+            case 1:
+                this.inventory.waterLevel = value;
+                break;
+        }
+    }
 }
