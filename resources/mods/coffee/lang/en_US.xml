@@ -10,5 +10,7 @@
 		<entry key="tile.coffeeLeaves.name">Leaves of Coffee</entry>
 		<entry key="coffee.effect.posion">Poisonous </entry>
 		<entry key="coffee.effect.decaf">Decaf </entry>
+		<entry key="coffee.effect.sugar">Sugar </entry>
+		<entry key="coffee.effect.milk"> Milk </entry>
 		<entry key="itemGroup.coffee">Coffee Not Tea</entry>
 </properties>

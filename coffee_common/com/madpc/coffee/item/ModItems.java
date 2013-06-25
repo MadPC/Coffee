@@ -10,8 +10,8 @@ public class ModItems {
     public static Item coffeeFilter;
     
     public static void init() {
-        coffee = new ItemCoffee(1200).setUnlocalizedName("coffee").setCreativeTab(Coffee.tabsCoffee);
-        coffeeBeans = new ItemCustom(1201).setUnlocalizedName("coffeeBeans").setCreativeTab(Coffee.tabsCoffee);
-        coffeeFilter = new ItemCustom(1202).setMaxDamage(8).setUnlocalizedName("coffeeFilter").setCreativeTab(Coffee.tabsCoffee);
+        coffee = new ItemCoffee(1200);
+        coffeeBeans = new ItemCoffeeBeans(1201);
+        coffeeFilter = new ItemCustom(1202).setMaxDamage(8);
     }
 }
