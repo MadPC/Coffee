@@ -12,6 +12,7 @@ public class ItemCustom extends Item {
         super(par1);
     }
     
+    @Override
     public void registerIcons(IconRegister register) {
         this.itemIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName().substring(5));
     }

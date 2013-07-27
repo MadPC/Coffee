@@ -33,14 +33,17 @@ public class BiomeGenCoffee extends BiomeGenBase {
         this.setBiomeName("Coffee, Not Tea");
     }
     
+    @Override
     public WorldGenerator getRandomWorldGenForTrees(Random rand) {
-        return (WorldGenerator)(rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : (rand.nextInt(2) == 0 ? new WorldGenShrub(3, 0) : (rand.nextInt(3) == 0 ? new WorldGenHugeTrees(false, 10 + rand.nextInt(20), 3, 3) : new WorldGenTrees(false, 4 + rand.nextInt(7), 3, 3, true))));
+        return rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : rand.nextInt(2) == 0 ? new WorldGenShrub(3, 0) : rand.nextInt(20) == 0 ? new WorldGenCoffea(true) : rand.nextInt(3) == 0 ? new WorldGenHugeTrees(false, 10 + rand.nextInt(20), 3, 3) : new WorldGenTrees(false, 4 + rand.nextInt(7), 3, 3, true);
     }
     
+    @Override
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
         return new WorldGenTallGrass(Block.tallGrass.blockID, 1);
     }
     
+    @Override
     public void decorate(World par1World, Random par2Random, int par3, int par4) {
         super.decorate(par1World, par2Random, par3, par4);
         //TODO Add proper stuff here. This used to be vines for jungle

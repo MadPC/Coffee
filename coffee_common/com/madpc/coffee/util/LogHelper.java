@@ -12,21 +12,20 @@ public class LogHelper {
     public static Logger logger = Logger.getLogger(Reference.MOD_ID);
     
     public static void init() {
-        logger.setParent(FMLLog.getLogger());
+        LogHelper.logger.setParent(FMLLog.getLogger());
         
     }
     
     public static void log(Level logLevel, String message) {
-        logger.log(logLevel, message);
+        LogHelper.logger.log(logLevel, message);
     }
     
     public static void info(String message) {
-        logger.log(Level.INFO, message);
+        LogHelper.logger.log(Level.INFO, message);
     }
-
-	public static void log(Level level, boolean bool)
-	{
-		logger.log(level, bool ? "true" : "false");
-	}
+    
+    public static void log(Level level, boolean bool) {
+        LogHelper.logger.log(level, bool ? "true" : "false");
+    }
     
 }

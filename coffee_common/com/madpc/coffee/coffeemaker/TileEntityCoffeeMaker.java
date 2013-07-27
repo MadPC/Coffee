@@ -1,5 +1,6 @@
-package com.madpc.coffee.tileentity;
+package com.madpc.coffee.coffeemaker;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -10,12 +11,17 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
+import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.liquids.LiquidTank;
 
-import com.madpc.coffee.helper.CoffeeHelper;
+import com.madpc.coffee.CoffeeHelper;
 import com.madpc.coffee.item.ModItems;
 
 public class TileEntityCoffeeMaker extends TileEntity implements
-        ISidedInventory {
+        ISidedInventory, ITankContainer {
     
     /**
      * 0 = Beans, 1 = Filter, 2 = Water, 3 - 6 = spices, 7 = output
@@ -23,8 +29,8 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     public ItemStack[] inventory = new ItemStack[8];
     public int progress = 0;
     public int maxProgress = 200;
-    public int waterLevel = 0;
-    public int maxWaterLevel = 16;
+    public int maxWaterLevel = 4000;
+    public LiquidTank water = new LiquidTank(new LiquidStack(Item.bucketWater, 0), this.maxWaterLevel);
     public String customName;
     
     public final int[] slotsDefault = {
@@ -35,7 +41,7 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     };
     
     public String getCustomName() {
-        return customName;
+        return this.customName;
     }
     
     public void setCustomName(String s) {
@@ -43,36 +49,36 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     public int getProgressScaled(int i) {
-        return progress * i / maxProgress;
+        return this.progress * i / this.maxProgress;
     }
     
     public int getWaterScaled(int i) {
-        return waterLevel * i / maxWaterLevel;
+        return this.getAmount(this.water.getLiquid()) * i / 4000;
     }
     
     @Override
     public int getSizeInventory() {
-        return inventory.length;
+        return this.inventory.length;
     }
     
     @Override
     public ItemStack getStackInSlot(int slot) {
-        return inventory[slot];
+        return this.inventory[slot];
     }
     
     @Override
     public ItemStack decrStackSize(int slot, int amount) {
-        if (inventory[slot] == null) return null;
+        if (this.inventory[slot] == null) return null;
         
         ItemStack r;
-        if (amount > inventory[slot].stackSize) {
-            r = inventory[slot];
-            inventory[slot] = null;
+        if (amount > this.inventory[slot].stackSize) {
+            r = this.inventory[slot];
+            this.inventory[slot] = null;
             return r;
         }
         
-        r = inventory[slot].splitStack(amount);
-        if (inventory[slot].stackSize == 0) inventory[slot] = null;
+        r = this.inventory[slot].splitStack(amount);
+        if (this.inventory[slot].stackSize == 0) this.inventory[slot] = null;
         return r;
     }
     
@@ -85,7 +91,7 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        inventory[slot] = stack;
+        this.inventory[slot] = stack;
         if (stack != null && stack.stackSize > this.getInventoryStackLimit()) stack.stackSize = this.getInventoryStackLimit();
     }
     
@@ -119,16 +125,19 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         
     }
     
+    public int getAmount(LiquidStack liquid) {
+        return liquid == null ? 0 : liquid.amount;
+    }
+    
     public boolean canMakeCoffee() {
         if (this.inventory[0] == null) return false;
         if (this.inventory[1] == null) return false;
-        if (this.waterLevel <= 0) return false;
+        if (this.getAmount(this.water.getLiquid()) < 1000) return false;
         if (this.inventory[7] == null) return true;
         ItemStack coffee = CoffeeHelper.getResult(this.inventory[3], this.inventory[4], this.inventory[5], this.inventory[6]);
         if (!this.inventory[7].isItemEqual(coffee)) return false;
         int result = this.inventory[7].stackSize + coffee.stackSize;
-        return result <= this.getInventoryStackLimit()
-                && result <= coffee.getMaxStackSize();
+        return result <= this.getInventoryStackLimit() && result <= coffee.getMaxStackSize();
     }
     
     @Override
@@ -136,34 +145,29 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         boolean invChanged = false;
         if (this.isInvalid()) System.out.println("Invalid Tile Entity");
         
-        if (!this.worldObj.isRemote) {
-            if (this.waterLevel < this.maxWaterLevel && this.inventory[2] != null && this.inventory[2].itemID == Item.bucketWater.itemID) {
-                ++this.waterLevel;
-                this.inventory[2] = new ItemStack(Item.bucketEmpty, 0, 1);
-                invChanged = true;
-            }
-            
-            if (this.canMakeCoffee()) {
-                if (++this.progress >= this.maxProgress) {
-                    this.progress = 0;
-                    
-                    // Brew the coffee
-                    ItemStack result = CoffeeHelper.getResult(this.inventory[3], this.inventory[4], this.inventory[5], this.inventory[6]);
-                    if (this.inventory[7] == null) this.inventory[7] = result.copy();
-                    else this.inventory[7].stackSize += result.stackSize;
-                    --this.inventory[0].stackSize;
-                    if (this.inventory[0].stackSize <= 0) this.inventory[0] = null;
-                    this.inventory[1].attemptDamageItem(1, worldObj.rand);
-                    --this.waterLevel;
-                    
-                    invChanged = true;
-                }
-            }
+        if (this.worldObj.isRemote) return;
+        if (this.getAmount(this.water.getLiquid()) + 1000 <= this.maxWaterLevel && this.inventory[2] != null && this.inventory[2].itemID == Item.bucketWater.itemID) {
+            this.water.fill(new LiquidStack(Item.bucketWater, 1000), true);
+            this.inventory[2] = new ItemStack(Item.bucketEmpty.itemID, 1, 0);
+            invChanged = true;
         }
         
-        if (invChanged) {
-            this.onInventoryChanged();
+        if (this.canMakeCoffee()) if (++this.progress >= this.maxProgress) {
+            this.progress = 0;
+            
+            // Brew the coffee
+            ItemStack result = CoffeeHelper.getResult(this.inventory[3], this.inventory[4], this.inventory[5], this.inventory[6]);
+            if (this.inventory[7] == null) this.inventory[7] = result.copy();
+            else this.inventory[7].stackSize += result.stackSize;
+            --this.inventory[0].stackSize;
+            if (this.inventory[0].stackSize <= 0) this.inventory[0] = null;
+            this.inventory[1].attemptDamageItem(1, this.worldObj.rand);
+            this.water.drain(1000, true);
+            
+            invChanged = true;
         }
+        
+        if (invChanged) this.onInventoryChanged();
     }
     
     @Override
@@ -187,8 +191,8 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        if (side == 0) return slotsBottom;
-        return slotsDefault;
+        if (side == 0) return this.slotsBottom;
+        return this.slotsDefault;
     }
     
     @Override
@@ -209,13 +213,11 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         for (int i = 0; i < invTag.tagCount(); i++) {
             NBTTagCompound itemTag = (NBTTagCompound) invTag.tagAt(i);
             byte slot = itemTag.getByte("slot");
-            if (slot > 0 && slot <= this.getInventoryStackLimit()) inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
+            if (slot <= this.getInventoryStackLimit()) this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
         
-        this.waterLevel = tag.getInteger("waterLevel");
-        //this.maxWaterLevel = tag.getInteger("maxWaterLevel");
+        this.water.fill(new LiquidStack(Item.bucketWater, tag.getInteger("waterLevel")), true);
         this.progress = tag.getInteger("progress");
-        //this.maxProgress = tag.getInteger("maxProgress");
     }
     
     @Override
@@ -223,18 +225,16 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         super.writeToNBT(tag);
         
         NBTTagList invTag = new NBTTagList();
-        for (int slot = 0; slot < inventory.length; slot++) {
-            if (inventory[slot] == null) continue;
-            NBTTagCompound itemTag = inventory[slot].writeToNBT(new NBTTagCompound());
+        for (int slot = 0; slot < this.inventory.length; slot++) {
+            if (this.inventory[slot] == null) continue;
+            NBTTagCompound itemTag = this.inventory[slot].writeToNBT(new NBTTagCompound());
             itemTag.setByte("slot", (byte) slot);
             invTag.appendTag(itemTag);
         }
         
         tag.setTag("inventory", invTag);
-        tag.setInteger("waterLevel", this.waterLevel);
-        tag.setInteger("maxWaterLevel", this.maxWaterLevel);
+        tag.setInteger("waterLevel", this.getAmount(this.water.getLiquid()));
         tag.setInteger("progress", this.progress);
-        tag.setInteger("maxProgress", this.maxProgress);
     }
     
     @Override
@@ -246,6 +246,59 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     
     @Override
     public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
-        readFromNBT(packet.customParam1);
+        this.readFromNBT(packet.customParam1);
+    }
+    
+    @Override
+    public int fill(ForgeDirection from, LiquidStack resource, boolean doFill) {
+        return this.fill(0, resource, doFill);
+    }
+    
+    @Override
+    public int fill(int tankIndex, LiquidStack resource, boolean doFill) {
+        if (tankIndex != 0 || resource == null || !resource.isLiquidEqual(new ItemStack(Block.waterStill))) return 0;
+        return this.water.fill(new LiquidStack(Item.bucketWater, this.getAmount(resource)), doFill);
+    }
+    
+    @Override
+    public LiquidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        return null;
+    }
+    
+    @Override
+    public LiquidStack drain(int tankIndex, int maxDrain, boolean doDrain) {
+        return null;
+    }
+    
+    @Override
+    public ILiquidTank[] getTanks(ForgeDirection direction) {
+        ForgeDirection dir = ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord));
+        switch (direction) {
+            case NORTH:
+                return dir == ForgeDirection.SOUTH ? new ILiquidTank[] {
+                    this.water
+                } : null;
+            case SOUTH:
+                return dir == ForgeDirection.NORTH ? new ILiquidTank[] {
+                    this.water
+                } : null;
+            case EAST:
+                return dir == ForgeDirection.EAST ? new ILiquidTank[] {
+                    this.water
+                } : null;
+            case WEST:
+                return dir == ForgeDirection.WEST ? new ILiquidTank[] {
+                    this.water
+                } : null;
+            default:
+                return new ILiquidTank[] {
+                    this.water
+                };
+        }
+    }
+    
+    @Override
+    public ILiquidTank getTank(ForgeDirection direction, LiquidStack type) {
+        return null;
     }
 }

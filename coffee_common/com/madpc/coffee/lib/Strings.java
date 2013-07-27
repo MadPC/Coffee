@@ -2,10 +2,9 @@ package com.madpc.coffee.lib;
 
 public class Strings {
     
-    
     /* Block name Constants */
     public static final String COFFEE_MAKER_NAME = "coffeeMaker";
-    public static final String COFFEE_LEAVES_NAME = "coffeeLeaves";
+    public static final String COFFEE_LEAVES_NAME = "coffeaLeaves";
     
     /* Item name constants */
     public static final String COFFEE_NAME = "coffee";
@@ -13,7 +12,6 @@ public class Strings {
     public static final String COFFEE_FILTER_NAME = "coffeeFilter";
     
     /* Container name constants */
-    public static final String CONTAINER_COFFEEMAKER_NAME = "container." + COFFEE_MAKER_NAME;
-   
-
+    public static final String CONTAINER_COFFEEMAKER_NAME = "container." + Strings.COFFEE_MAKER_NAME;
+    
 }

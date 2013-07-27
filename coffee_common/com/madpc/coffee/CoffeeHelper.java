@@ -1,4 +1,4 @@
-package com.madpc.coffee.helper;
+package com.madpc.coffee;
 
 import java.util.List;
 
@@ -41,8 +41,7 @@ public class CoffeeHelper {
     }
     
     public static boolean isSpice(int id) {
-        return id == Item.bucketMilk.itemID || id == Item.sugar.itemID
-                || id == Item.spiderEye.itemID;
+        return id == Item.bucketMilk.itemID || id == Item.sugar.itemID || id == Item.spiderEye.itemID;
     }
     
     public static ItemStack getResult(ItemStack... spices) {
@@ -50,12 +49,9 @@ public class CoffeeHelper {
         NBTTagCompound tag = new NBTTagCompound();
         for (ItemStack spice : spices) {
             if (spice == null) continue;
-            if (spice.itemID == Item.bucketMilk.itemID)
-                tag.setInteger("milk", tag.getInteger("milk") + spice.stackSize);
-            else if (spice.itemID == Item.spiderEye.itemID)
-                tag.setInteger("poison", tag.getInteger("poison") + spice.stackSize);
-            else if (spice.itemID == Item.sugar.itemID)
-                tag.setInteger("sugar", tag.getInteger("sugar") + spice.stackSize);
+            if (spice.itemID == Item.bucketMilk.itemID) tag.setInteger("milk", tag.getInteger("milk") + 1);
+            else if (spice.itemID == Item.spiderEye.itemID) tag.setInteger("poison", tag.getInteger("poison") + 1);
+            else if (spice.itemID == Item.sugar.itemID) tag.setInteger("sugar", tag.getInteger("sugar") + 2);
         }
         result.setTagCompound(tag);
         return result;

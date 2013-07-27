@@ -1,4 +1,4 @@
-package com.madpc.coffee.renderer;
+package com.madpc.coffee.coffeemaker;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ public class ItemRendererCustom implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         try {
-            TileEntityRenderer.instance.renderTileEntityAt(tile.newInstance(), 0.0D, 0.0D, 0.0D, 0.0F);
+            TileEntityRenderer.instance.renderTileEntityAt(this.tile.newInstance(), 0.0D, 0.0D, 0.0D, 0.0F);
         } catch (Exception e) {
             e.printStackTrace();
         }

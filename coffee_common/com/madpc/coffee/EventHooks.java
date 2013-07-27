@@ -1,7 +1,5 @@
 package com.madpc.coffee;
 
-import java.util.Iterator;
-
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -25,15 +23,13 @@ public class EventHooks {
                 if (amplifier > 0) event.entityLiving.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 2, (int) Math.floor((amplifier - 1) / 2)));
             }
             
-            if (amplifier >= 4) {
-                if (duration > 100) {
-                    caffeine.duration = 100;
-                    event.entityLiving.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
-                } else if (duration == 1) {
-                    event.entityLiving.attackEntityFrom(new DamageSourceCaffeine(), 1000);
-                    event.entityLiving.worldObj.createExplosion(event.entityLiving, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, amplifier * 2.0F, false);
-                    event.entityLiving.removePotionEffect(Coffee.caffeine.getId());
-                }
+            if (amplifier >= 4) if (duration > 100) {
+                caffeine.duration = 100;
+                event.entityLiving.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+            } else if (duration == 1) {
+                event.entityLiving.attackEntityFrom(new DamageSourceCaffeine(), 1000);
+                event.entityLiving.worldObj.createExplosion(event.entityLiving, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, amplifier * 2.0F, false);
+                event.entityLiving.removePotionEffect(Coffee.caffeine.getId());
             }
         }
         

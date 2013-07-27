@@ -3,10 +3,10 @@ package com.madpc.coffee.core.proxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.madpc.coffee.container.ContainerCoffeeMaker;
-import com.madpc.coffee.gui.GuiCoffeeMaker;
+import com.madpc.coffee.coffeemaker.ContainerCoffeeMaker;
+import com.madpc.coffee.coffeemaker.GuiCoffeeMaker;
+import com.madpc.coffee.coffeemaker.TileEntityCoffeeMaker;
 import com.madpc.coffee.lib.Reference;
-import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;

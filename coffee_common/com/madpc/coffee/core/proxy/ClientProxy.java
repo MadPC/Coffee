@@ -3,9 +3,9 @@ package com.madpc.coffee.core.proxy;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.madpc.coffee.block.ModBlocks;
-import com.madpc.coffee.renderer.ItemRendererCustom;
-import com.madpc.coffee.renderer.TileRendererCoffeeMaker;
-import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
+import com.madpc.coffee.coffeemaker.ItemRendererCustom;
+import com.madpc.coffee.coffeemaker.TileEntityCoffeeMaker;
+import com.madpc.coffee.coffeemaker.TileRendererCoffeeMaker;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 

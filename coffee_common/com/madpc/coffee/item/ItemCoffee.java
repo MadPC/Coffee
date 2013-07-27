@@ -12,7 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import com.madpc.coffee.Coffee;
-import com.madpc.coffee.helper.CoffeeHelper;
+import com.madpc.coffee.CoffeeHelper;
 import com.madpc.coffee.lib.Strings;
 
 import cpw.mods.fml.relauncher.Side;
@@ -44,19 +44,17 @@ public class ItemCoffee extends ItemCustom {
         // Add sugar
         if (tag.getInteger("sugar") > 0) {
             amplifier = tag.getInteger("sugar") - 1;
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,  600 * (amplifier + 1), amplifier));
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 600 * (amplifier + 1), amplifier));
         }
         
         // Add poison
         if (tag.getInteger("poison") > 0) {
             amplifier = tag.getInteger("poison") - 1;
-            player.addPotionEffect(new PotionEffect(Potion.poison.id,  200 * (amplifier + 1), amplifier));
+            player.addPotionEffect(new PotionEffect(Potion.poison.id, 200 * (amplifier + 1), amplifier));
         }
         
         // Add milk
-        if (tag.getInteger("milk") > 0) {
-            player.getFoodStats().addStats(tag.getInteger("milk"), 0.1F);
-        }
+        if (tag.getInteger("milk") > 0) player.getFoodStats().addStats(tag.getInteger("milk"), 0.1F);
         
         return stack;
     }
@@ -70,7 +68,6 @@ public class ItemCoffee extends ItemCustom {
     public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean par4) {
         CoffeeHelper.addInformation(stack, lines);
     }
-    
     
     @Override
     public String getItemDisplayName(ItemStack stack) {

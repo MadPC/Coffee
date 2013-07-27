@@ -3,15 +3,18 @@ package com.madpc.coffee.block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.madpc.coffee.Coffee;
+import com.madpc.coffee.coffeemaker.TileEntityCoffeeMaker;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.lib.Strings;
-import com.madpc.coffee.tileentity.TileEntityCoffeeMaker;
 
 public class BlockCoffeeMaker extends BlockContainer {
     
@@ -67,7 +70,26 @@ public class BlockCoffeeMaker extends BlockContainer {
     
     @Override
     public void registerIcons(IconRegister register) {
-        register.registerIcon(Reference.MOD_ID + ":"
-                + this.getUnlocalizedName());
+        register.registerIcon(Reference.MOD_ID + ":" + this.getUnlocalizedName2());
+    }
+    
+    @Override
+    public void onBlockPlacedBy(World worldObj, int x, int y, int z, EntityLiving placer, ItemStack stack) {
+        byte dir = 0;
+        int side = MathHelper.floor_double(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+        
+        if (side == 0) dir = 2;
+        
+        if (side == 1) dir = 5;
+        
+        if (side == 2) dir = 3;
+        
+        if (side == 3) dir = 4;
+        
+        worldObj.setBlockMetadataWithNotify(x, y, z, dir, 3);
+        
+        if (stack.hasDisplayName()) {
+            //((TileEntityCoffeeMaker)worldObj.getBlockTileEntity(x, y, z)).func_94043_a(stack.getDisplayName());
+        }
     }
 }
