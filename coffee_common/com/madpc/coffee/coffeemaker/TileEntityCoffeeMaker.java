@@ -161,7 +161,8 @@ public class TileEntityCoffeeMaker extends TileEntity implements
             else this.inventory[7].stackSize += result.stackSize;
             --this.inventory[0].stackSize;
             if (this.inventory[0].stackSize <= 0) this.inventory[0] = null;
-            this.inventory[1].attemptDamageItem(1, this.worldObj.rand);
+            --this.inventory[1].stackSize;
+            if (this.inventory[1].stackSize <= 0) this.inventory[1] = null;
             this.water.drain(1000, true);
             
             invChanged = true;

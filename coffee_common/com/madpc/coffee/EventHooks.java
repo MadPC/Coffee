@@ -2,9 +2,13 @@ package com.madpc.coffee;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 
+import com.madpc.coffee.block.BlockCoffeaSapling;
+import com.madpc.coffee.block.ModBlocks;
 import com.madpc.coffee.potion.DamageSourceCaffeine;
 
 public class EventHooks {
@@ -39,5 +43,13 @@ public class EventHooks {
             PotionEffect effect = (PotionEffect) ieffects.next();
             if (effect.getDuration() <= 0) event.entityLiving.removePotionEffect(effect.getPotionID());
         }*/
+    }
+    
+    @ForgeSubscribe
+    public void onBonemean(BonemealEvent event) {
+        if (event.ID == ModBlocks.coffeaSapling.blockID) {
+            if (event.world.rand.nextFloat() < 0.45D) ((BlockCoffeaSapling) ModBlocks.coffeaSapling).markOrGrowMarked(event.world, event.X, event.Y, event.Z, event.world.rand);
+            event.setResult(Result.ALLOW);
+        }
     }
 }

@@ -26,6 +26,6 @@ public class DamageSourceCaffeine extends DamageSource {
     
     @Override
     public String getDeathMessage(EntityLiving entity) {
-        return DamageSourceCaffeine.messages[entity.worldObj.rand.nextInt(DamageSourceCaffeine.messages.length)].replaceAll("<P>", entity.getEntityName());
+        return DamageSourceCaffeine.messages[entity.worldObj.rand.nextInt(DamageSourceCaffeine.messages.length)].replaceAll("\\[P\\]", entity.getEntityName());
     }
 }

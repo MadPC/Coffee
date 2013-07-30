@@ -59,8 +59,7 @@ public class ContainerCoffeeMaker extends Container {
             r = slotStack.copy();
             
             if (source < 8) {
-                if (!this.mergeItemStack(slotStack, 34, 43, false)) return null;
-                if (!this.mergeItemStack(slotStack, 8, 33, false)) return null;
+                if (!this.mergeItemStack(slotStack, 8, 43, false)) return null;
                 slot.onSlotChange(slotStack, r);
             } else if (slotStack.itemID == ModItems.coffeeBeans.itemID) {
                 if (!this.mergeItemStack(slotStack, 0, 7, false)) return null;

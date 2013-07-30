@@ -4,6 +4,7 @@ import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -14,7 +15,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.madpc.coffee.block.ModBlocks;
 import com.madpc.coffee.core.proxy.CommonProxy;
-import com.madpc.coffee.creativetab.CreativeTabCoffee;
 import com.madpc.coffee.item.ModItems;
 import com.madpc.coffee.lib.Reference;
 import com.madpc.coffee.potion.PotionCaffeine;
@@ -51,19 +51,27 @@ public class Coffee {
     public void preInit(FMLPreInitializationEvent event) {
         LocalizationHandler.loadLanguages();
         
-        Coffee.config = new Configuration(new File(event.getModConfigurationDirectory(), "Coffee.conf"));
-        config.load();
+        Coffee.config = new Configuration(new File(event.getModConfigurationDirectory(), "Coffee.cfg"));
+        Coffee.config.load();
         
         try {
             ModItems.init();
             ModBlocks.init();
+            
+            if (Coffee.config.get("Crafting", "RecipesEnabled", true).getBoolean(true)) {
+                if (Coffee.config.get("Crafting", "RecipeCoffeeBeans", true).getBoolean(true)) GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coffeeBeans), new Object[] { new ItemStack(ModItems.coffeeBerry) });
+                if (Coffee.config.get("Crafting", "RecipeCoffeeFilter", true).getBoolean(true)) GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coffeeFilter), new Object[] { new ItemStack(Item.paper) });
+                // Adds the coffee + spices recipies
+                if (Coffee.config.get("Crafting", "RecipeAddSpices", true).getBoolean(true)) GameRegistry.addRecipe(new RecipeCoffee());
+                if (Coffee.config.get("Crafting", "RecipeCoffeeMaker", true).getBoolean(true)) GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.coffeeMaker), new Object[] {
+                        "IBI", "IRI", "ILI", 'I',
+                        new ItemStack(Block.blockIron), 'R',
+                        new ItemStack(Item.redstone), 'L',
+                        new ItemStack(Item.bucketLava) });
+            }
         } finally {
-            if (config.hasChanged()) config.save();
+            if (Coffee.config.hasChanged()) Coffee.config.save();
         }
-        
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.coffeeBeans, 1), new Object[] {
-                "B", 'B', ModItems.coffeaBerry
-        });
         
         Coffee.proxy.registerTileEntities();
         Coffee.proxy.registerRenderers();

@@ -1,4 +1,4 @@
-package com.madpc.coffee.creativetab;
+package com.madpc.coffee;
 
 import net.minecraft.creativetab.CreativeTabs;
 

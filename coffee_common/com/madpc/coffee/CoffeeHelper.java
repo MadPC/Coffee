@@ -1,10 +1,12 @@
 package com.madpc.coffee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 import com.madpc.coffee.item.ModItems;
 
@@ -12,11 +14,13 @@ public class CoffeeHelper {
     
     public static String getCoffeeName(ItemStack stack) {
         if (stack.itemID != ModItems.coffee.itemID) return "";
-        String name = "Coffee";
+        String name = StatCollector.translateToLocal("item.coffee.name");
         if (stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound();
-            if (tag.getInteger("poison") > 0) name = "Poisonous " + name;
-            if (tag.getBoolean("decaf")) name = "Decaf " + name;
+            if (tag.getBoolean("decaf")) name = StatCollector.translateToLocal("coffee.effect.decaf") + name;
+            if (tag.getInteger("poison") > 0) name = StatCollector.translateToLocal("coffee.effect.posion") + name;
+            if (tag.getInteger("sugar") > 0) name = StatCollector.translateToLocal("coffee.effect.sugar") + name;
+            if (tag.getInteger("milk") > 0) name = StatCollector.translateToLocal("coffee.effect.milk") + name;
         }
         return name;
     }
@@ -44,7 +48,7 @@ public class CoffeeHelper {
         return id == Item.bucketMilk.itemID || id == Item.sugar.itemID || id == Item.spiderEye.itemID;
     }
     
-    public static ItemStack getResult(ItemStack... spices) {
+    public static ItemStack getResult(List<ItemStack> spices) {
         ItemStack result = new ItemStack(ModItems.coffee.itemID, 1, 0);
         NBTTagCompound tag = new NBTTagCompound();
         for (ItemStack spice : spices) {
@@ -55,5 +59,34 @@ public class CoffeeHelper {
         }
         result.setTagCompound(tag);
         return result;
+    }
+    
+    public static ItemStack getResult(ItemStack... spices) {
+        List<ItemStack> lspices = new ArrayList<ItemStack>();
+        for (ItemStack spice : spices)
+            lspices.add(spice);
+        return CoffeeHelper.getResult(lspices);
+    }
+    
+    public static ItemStack addEffects(ItemStack coffee, List<ItemStack> spices) {
+        ItemStack b = CoffeeHelper.getResult(spices);
+        b.getTagCompound().setBoolean("decaf", true);
+        return CoffeeHelper.combineEffects(coffee.copy(), b);
+    }
+    
+    public static ItemStack combineEffects(ItemStack a, ItemStack b) {
+        ItemStack r = a.copy();
+        NBTTagCompound rtag = a.getTagCompound();
+        if (rtag == null) rtag = new NBTTagCompound();
+        NBTTagCompound btag = b.getTagCompound();
+        if (btag != null) {
+            rtag.setInteger("milk", rtag.getInteger("milk") + btag.getInteger("milk"));
+            rtag.setInteger("sugar", rtag.getInteger("sugar") + btag.getInteger("sugar"));
+            rtag.setInteger("poison", rtag.getInteger("poison") + btag.getInteger("poison"));
+            rtag.setBoolean("decaf", rtag.getBoolean("decaf") && btag.getBoolean("decaf"));
+        }
+        
+        r.setTagCompound(rtag);
+        return r;
     }
 }
