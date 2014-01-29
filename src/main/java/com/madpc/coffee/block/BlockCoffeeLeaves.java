@@ -264,12 +264,6 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
     {
         return !this.field_150121_P;
     }
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a(int par1, int par2)
-    {
-        return (par2 & 3) == 1 ? this.iconArray[this.field_94394_cP][1] : ((par2 & 3) == 3 ? this.iconArray[this.field_94394_cP][3] : this.iconArray[this.field_94394_cP][0]);
-    }
     
     @SideOnly(Side.CLIENT)
     public void setGraphicsLevel(boolean par1)
@@ -313,7 +307,16 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 	@Override
 	public String[] func_150125_e()
 	{
-		// TODO Auto-generated method stub
+
 		return null;
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon func_149691_a(int var1, int var2)
+	{
+
+		return null;
+	}
+
 }

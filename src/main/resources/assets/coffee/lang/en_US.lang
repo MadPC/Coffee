@@ -1,0 +1,11 @@
+item.coffee.name=Coffee
+item.coffeeBeans.name=Coffee Beans
+item.coffeeFilter.name=Coffee Filter
+container.coffeeMaker=Coffee Pro 1000
+tile.coffeeMaker.name=Coffee Pro 1000
+tile.coffeeLeaves.name=Leaves of Coffee
+coffee.effect.posion=Poisonous 
+coffee.effect.decaf=Decaf 
+coffee.effect.sugar=Sugar 
+coffee.effect.milk=Milk 
+itemGroup.coffee=Coffee Not Tea
