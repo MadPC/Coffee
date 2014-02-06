@@ -42,7 +42,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
     
-    public void func_149749_a(World par1World, int par2, int par3, int par4, int par5, int par6)
+    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
         byte b0 = 1;
         int j1 = b0 + 1;
@@ -177,7 +177,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
         }
     }
     
-    public void func_149734_b(World par1World, int par2, int par3, int par4, Random par5Random)
+    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !par1World.doesBlockHaveSolidTopSurface(par1World,par2, par3 - 1, par4) && par5Random.nextInt(15) == 1)
         {

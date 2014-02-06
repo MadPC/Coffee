@@ -25,7 +25,7 @@ public class TileRendererCoffeeMaker extends TileEntitySpecialRenderer {
     
     private void render(TileEntityCoffeeMaker tile, double x, double y, double z, float rot) {
         int rotation = 0;
-        //if (tile.worldObj != null) rotation = tile.func_145832_p();
+        //if (tile.worldObj != null) rotation = tile.getBlockMetadata();
         
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.MODEL_COFFEEMAKER);
         GL11.glPushMatrix();
