@@ -30,9 +30,9 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
     protected BlockCoffeeLeaves() {
         super();
-        this.func_149675_a(true);
-        this.func_149647_a(Coffee.tabsCoffee);
-        this.func_149663_c(Strings.COFFEE_LEAVES_NAME);
+        this.setTickRandomly(true);
+        this.setCreativeTab(Coffee.tabsCoffee);
+        this.setBlockName(Strings.COFFEE_LEAVES_NAME);
     }
     
     @SideOnly(Side.CLIENT)
@@ -55,7 +55,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
                 {
                     for (int i2 = -b0; i2 <= b0; ++i2)
                     {
-                        Block j2 = par1World.func_147439_a(par2 + k1, par3 + l1, par4 + i2);
+                        Block j2 = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
 
                         if (j2.isLeaves(par1World, par2, par3, par4))
                         {
@@ -99,7 +99,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
                         {
                             for (j2 = -b0; j2 <= b0; ++j2)
                             {
-                               Block block = par1World.func_147439_a(par2 + l1, par3 + i2, par4 + j2);
+                               Block block = par1World.getBlock(par2 + l1, par3 + i2, par4 + j2);
 
                                 if (block != null && block.canSustainLeaves(par1World, par2 + l1, par3 + i2, par4 + j2))
                                 {
@@ -179,7 +179,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
     
     public void func_149734_b(World par1World, int par2, int par3, int par4, Random par5Random)
     {
-        if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !par1World.func_147466_a(par1World,par2, par3 - 1, par4) && par5Random.nextInt(15) == 1)
+        if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !par1World.doesBlockHaveSolidTopSurface(par1World,par2, par3 - 1, par4) && par5Random.nextInt(15) == 1)
         {
             double d0 = (double)((float)par2 + par5Random.nextFloat());
             double d1 = (double)par3 - 0.05D;
@@ -190,8 +190,8 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
     private void removeLeaves(World par1World, int par2, int par3, int par4)
     {
-        this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-        par1World.func_147468_f(par2, par3, par4);
+        this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+        par1World.setBlockToAir(par2, par3, par4);
     }
 
    
@@ -203,7 +203,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
     
     public Item idDropped(int par1, Random par2Random, int par3)
     {
-        return Item.func_150898_a(Blocks.sapling);
+        return Item.getItemFromBlock(Blocks.sapling);
     }
 
     
@@ -230,8 +230,8 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
             if (par1World.rand.nextInt(j1) == 0)
             {
-                Item k1 = this.func_149650_a(par5, par1World.rand, par7);
-                this.func_149642_a(par1World, par2, par3, par4, new ItemStack(k1, 1, this.damageDropped(par5)));
+                Item k1 = this.getItemDropped(par5, par1World.rand, par7);
+                this.dropBlockAsItem(par1World, par2, par3, par4, new ItemStack(k1, 1, this.damageDropped(par5)));
             }
 
             j1 = 200;
@@ -248,13 +248,13 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
             if ((par5 & 3) == 0 && par1World.rand.nextInt(j1) == 0)
             {
-                this.func_149642_a(par1World, par2, par3, par4, new ItemStack(Items.apple, 1, 0));
+                this.dropBlockAsItem(par1World, par2, par3, par4, new ItemStack(Items.apple, 1, 0));
             }
         }
     }
     public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
-        super.func_149636_a(par1World, par2EntityPlayer, par3, par4, par5, par6);
+        super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
     }
     public int damageDropped(int par1)
     {
@@ -275,7 +275,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
     protected ItemStack createStackedBlock(int par1)
     {
-        return new ItemStack(Item.func_150898_a(this), 1, par1 & 3);
+        return new ItemStack(Item.getItemFromBlock(this), 1, par1 & 3);
     }
     
 
@@ -313,7 +313,7 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon func_149691_a(int var1, int var2)
+	public IIcon getIcon(int var1, int var2)
 	{
 
 		return null;

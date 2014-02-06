@@ -22,7 +22,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         super.registerRenderers();
-        MinecraftForgeClient.registerItemRenderer(Item.func_150898_a(ModBlocks.coffeeMaker), new ItemRendererCustom(TileEntityCoffeeMaker.class));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.coffeeMaker), new ItemRendererCustom(TileEntityCoffeeMaker.class));
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCoffeeMaker.class, new TileRendererCoffeeMaker());
     }
 }

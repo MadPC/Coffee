@@ -87,12 +87,12 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     @Override
-    public String func_145825_b() {
-        return this.func_145818_k_() ? this.getCustomName() : "container.coffeeMaker";
+    public String getInventoryName() {
+        return this.hasCustomInventoryName() ? this.getCustomName() : "container.coffeeMaker";
     }
     
     @Override
-    public boolean func_145818_k_() {
+    public boolean hasCustomInventoryName() {
         return this.customName != null;
     }
     
@@ -107,12 +107,12 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     @Override
-    public void openChest() {
+    public void openInventory() {
         
     }
     
     @Override
-    public void closeChest() {
+    public void closeInventory() {
         
     }
     
@@ -129,11 +129,11 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     @Override
-    public void func_145845_h() {
+    public void updateEntity() {
         boolean invChanged = false;
-        if (this.func_145837_r()) System.out.println("Invalid Tile Entity");
+        if (this.isInvalid()) System.out.println("Invalid Tile Entity");
         
-        if (!this.field_145850_b.isRemote) {
+        if (!this.worldObj.isRemote) {
             if (this.waterLevel < this.maxWaterLevel && this.inventory[2] != null && this.inventory[2].getItem() == Items.water_bucket) {
                 ++this.waterLevel;
                 this.inventory[2] = new ItemStack(Items.bucket, 0, 1);
@@ -150,7 +150,7 @@ public class TileEntityCoffeeMaker extends TileEntity implements
                     else this.inventory[7].stackSize += result.stackSize;
                     --this.inventory[0].stackSize;
                     if (this.inventory[0].stackSize <= 0) this.inventory[0] = null;
-                    this.inventory[1].attemptDamageItem(1, field_145850_b.rand);
+                    this.inventory[1].attemptDamageItem(1, worldObj.rand);
                     --this.waterLevel;
                     
                     invChanged = true;
@@ -159,7 +159,7 @@ public class TileEntityCoffeeMaker extends TileEntity implements
         }
         
         if (invChanged) {
-            this.onInventoryChanged();
+            this.markDirty();
         }
     }
    
@@ -181,12 +181,12 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     @Override
-    public void func_145839_a(NBTTagCompound tag) {
-        super.func_145839_a(tag);
-        NBTTagList invTag = tag.func_150295_c("inventory", 0);
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        NBTTagList invTag = tag.getTagList("inventory", 0);
         
         for (int i = 0; i < invTag.tagCount(); i++) {
-            NBTTagCompound itemTag = (NBTTagCompound) invTag.func_150305_b(i);
+            NBTTagCompound itemTag = (NBTTagCompound) invTag.getCompoundTagAt(i);
             byte slot = itemTag.getByte("slot");
             if (slot > 0 && slot <= this.getInventoryStackLimit()) inventory[slot] = ItemStack.loadItemStackFromNBT(itemTag);
         }
@@ -198,8 +198,8 @@ public class TileEntityCoffeeMaker extends TileEntity implements
     }
     
     @Override
-    public void func_145841_b(NBTTagCompound tag) {
-        super.func_145841_b(tag);
+    public void writeToNBT(NBTTagCompound tag) {
+        super.writeToNBT(tag);
         
         NBTTagList invTag = new NBTTagList();
         for (int slot = 0; slot < inventory.length; slot++) {

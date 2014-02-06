@@ -19,7 +19,7 @@ public class TileRendererCoffeeMaker extends TileEntitySpecialRenderer {
     }
     
     @Override
-    public void func_147500_a(TileEntity tileEntity, double x, double y, double z, float rot) {
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float rot) {
         render((TileEntityCoffeeMaker) tileEntity, x, y, z, rot);
     }
     

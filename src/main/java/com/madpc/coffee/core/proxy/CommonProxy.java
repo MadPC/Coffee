@@ -21,13 +21,13 @@ public class CommonProxy implements IGuiHandler {
     
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == Reference.coffeeMaker) return new ContainerCoffeeMaker(player.inventory, (TileEntityCoffeeMaker) world.func_147438_o(x, y, z));
+        if (ID == Reference.coffeeMaker) return new ContainerCoffeeMaker(player.inventory, (TileEntityCoffeeMaker) world.getTileEntity(x, y, z));
         return null;
     }
     
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == Reference.coffeeMaker) return new GuiCoffeeMaker(player, (TileEntityCoffeeMaker) world.func_147438_o(x, y, z));
+        if (ID == Reference.coffeeMaker) return new GuiCoffeeMaker(player, (TileEntityCoffeeMaker) world.getTileEntity(x, y, z));
         return null;
     }
     
