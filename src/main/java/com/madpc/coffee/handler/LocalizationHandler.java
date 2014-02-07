@@ -7,7 +7,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class LocalizationHandler {
     
-    public static void loadLanguages() {
+    @SuppressWarnings("deprecation")
+	public static void loadLanguages() {
         for (String localizationFile : Localizations.localeFiles) {
             LanguageRegistry.instance().loadLocalization(localizationFile, LocalizationHelper.getLocaleFromFileName(localizationFile), LocalizationHelper.isXMLLanguageFile(localizationFile));
         }

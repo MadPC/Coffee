@@ -24,8 +24,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
     
     int[] adjacentTreeBlocks;
-    private int field_94394_cP;
-    private IIcon[][] iconArray = new IIcon[2][];
+    @SuppressWarnings("unused")
+	private int field_94394_cP;
+    @SuppressWarnings("unused")
+	private IIcon[][] iconArray = new IIcon[2][];
     
 
     protected BlockCoffeeLeaves() {
@@ -177,7 +179,8 @@ public class BlockCoffeeLeaves extends BlockLeaves implements IShearable {
         }
     }
     
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    @SuppressWarnings("static-access")
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (par1World.canLightningStrikeAt(par2, par3 + 1, par4) && !par1World.doesBlockHaveSolidTopSurface(par1World,par2, par3 - 1, par4) && par5Random.nextInt(15) == 1)
         {

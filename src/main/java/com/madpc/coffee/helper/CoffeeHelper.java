@@ -22,7 +22,8 @@ public class CoffeeHelper {
         return name;
     }
     
-    public static void addInformation(ItemStack stack, List lines) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void addInformation(ItemStack stack, List lines) {
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         
         NBTTagCompound tag = stack.getTagCompound();

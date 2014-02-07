@@ -2,8 +2,6 @@ package com.madpc.coffee.item;
 
 import net.minecraft.item.Item;
 
-import com.madpc.coffee.Coffee;
-
 public class ModItems {
     public static Item coffee;
     public static Item coffeeBeans;

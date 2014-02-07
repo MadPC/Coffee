@@ -67,7 +67,8 @@ public class ItemCoffee extends ItemCustom {
         return EnumAction.drink;
     }
     
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean par4) {
         CoffeeHelper.addInformation(stack, lines);
     }
@@ -89,7 +90,8 @@ public class ItemCoffee extends ItemCustom {
         return stack;
     }
     
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SideOnly(Side.CLIENT)
     public void func_150895_a(Item id, CreativeTabs tab, List items) {
         
         items.add(new ItemStack(id));

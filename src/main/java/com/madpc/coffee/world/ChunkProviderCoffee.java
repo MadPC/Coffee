@@ -63,7 +63,8 @@ public class ChunkProviderCoffee implements IChunkProvider {
         return null;
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public List getPossibleCreatures(EnumCreatureType enumcreaturetype, int i,
             int j, int k) {
         // TODO Auto-generated method stub
